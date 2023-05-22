@@ -1,16 +1,16 @@
 import mongoose from "mongoose";
 
-const Url = new mongoose.Schema(
+const urlDb = new mongoose.Schema(
   {
-    id: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-    short_url: {
-      type: String,
-      unique: true,
-    },
+    // id: {
+    //   type: String,
+    //   required: true,
+    //   unique: true,
+    // },
+    // short_url: {
+    //   type: String,
+    //   unique: true,
+    // },
     main_url: {
       type: String,
     },
@@ -18,4 +18,4 @@ const Url = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.model("Url", Url);
+export default mongoose.model("urlDb", urlDb);
