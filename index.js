@@ -26,7 +26,8 @@ app.use(express.static("public"));
 
 // http://expressjs.com/en/starter/basic-routing.html
 app.get("/", function (req, res) {
-  res.sendFile(process.cwd() + "/views/index.html");
+  console.log(process.cwd());
+  res.sendFile(process.cwd() + "/index.html");
 });
 
 // Your first API endpoint
