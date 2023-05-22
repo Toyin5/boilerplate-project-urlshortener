@@ -23,11 +23,11 @@ await database();
 
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static("public"));
+app.use(express.static("views"));
 
 // http://expressjs.com/en/starter/basic-routing.html
 app.get("/", function (req, res) {
-  console.log(process.cwd());
-  res.sendFile(process.cwd() + "/index.html");
+  res.sendFile(process.cwd() + "/views/index.html");
 });
 
 // Your first API endpoint
