@@ -17,12 +17,16 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.urlencoded());
 
-app.use("/public", express.static(`${process.cwd()}/public`));
+// app.use("/public", express.static(`${process.cwd()}/public`));
 
 await database();
 
+// http://expressjs.com/en/starter/static-files.html
+app.use(express.static("public"));
+
+// http://expressjs.com/en/starter/basic-routing.html
 app.get("/", function (req, res) {
-  res.sendFile(process.cwd() + "/views/index.html");
+  res.sendFile(__dirname + "/views/index.html");
 });
 
 // Your first API endpoint
