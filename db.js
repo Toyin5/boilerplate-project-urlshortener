@@ -1,11 +1,11 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
-const database = async () => {
+async function database() {
   mongoose.set("strictQuery", false);
   return await mongoose
     .connect(process.env.MONGO)
     .then((res) => console.log("connection success : ", res.options.autoIndex))
     .catch((err) => console.log("connection failed : ", err));
-};
+}
 
-export default database;
+module.exports = database;

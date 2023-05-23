@@ -1,10 +1,10 @@
-import "dotenv/config";
-import express from "express";
-import cors from "cors";
-import database from "./db.js";
-import dns from "dns";
-import urlDb from "./models/url.js";
-import path from "path";
+require("dotenv").config();
+const express = require("express");
+const cors = require("cors");
+const database = require("./db.js");
+const urlDb = require("./models/url.js");
+const dns = require("node:dns");
+
 const app = express();
 
 const options = {
@@ -20,14 +20,14 @@ app.use(express.urlencoded());
 
 // app.use("/public", express.static(`${process.cwd()}/public`));
 
-await database();
+database();
 
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static("public"));
 
 // http://expressjs.com/en/starter/basic-routing.html
 app.get("/", function (req, res) {
-  res.render("index");
+  res.sendFile(__dirname + "/views/index.html");
 });
 
 // Your first API endpoint

@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const urlDb = new mongoose.Schema(
   {
@@ -18,4 +18,4 @@ const urlDb = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.model("urlDb", urlDb);
+module.exports = urlDb;
