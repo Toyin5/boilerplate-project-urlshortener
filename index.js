@@ -4,6 +4,7 @@ import cors from "cors";
 import database from "./db.js";
 import dns from "dns";
 import urlDb from "./models/url.js";
+import path from "path";
 const app = express();
 
 const options = {
@@ -23,11 +24,10 @@ await database();
 
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static("public"));
-app.use(express.static("views"));
 
 // http://expressjs.com/en/starter/basic-routing.html
 app.get("/", function (req, res) {
-  res.sendFile(process.cwd() + "/views/index.html");
+  res.render("index");
 });
 
 // Your first API endpoint
