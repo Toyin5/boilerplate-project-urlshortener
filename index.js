@@ -37,8 +37,8 @@ app.get("/api/hello", function (req, res) {
 
 app.post("/api/shorturl", async (req, res) => {
   const { url } = req.body;
-  const arr = new Uint32Array(5);
-  const id = crypto.getRandomValues(arr)[0];
+  // const arr = new Uint32Array(5);
+  // const id = crypto.getRandomValues(arr)[0];
   let hostname = url;
   if (url.indexOf(":") !== -1) {
     hostname = url.slice(url.indexOf(":") + 3);
@@ -49,7 +49,8 @@ app.post("/api/shorturl", async (req, res) => {
       res.status(404).json({ error: "invalid url" });
     } else {
       try {
-        const newUrl = new urlDb({ _id: id, main_url: url });
+        // const newUrl = new urlDb({ _id: id, main_url: url });
+        const newUrl = new urlDb({ main_url: url });
         const doc = await newUrl.save();
         res.status(200).json({ original_url: url, short_url: doc._id });
       } catch (error) {
@@ -64,10 +65,14 @@ app.get("/api/shorturl/:url", async (req, res) => {
   const { url } = req.params;
   console.log(url);
   await urlDb
-    .findOne({ _id: url })
+    .findById(url)
     .then((result) => {
       console.log(result);
-      res.redirect(result.main_url);
+      if (result.main_url.indexOf(":") !== -1) {
+        res.redirect(result.main_url);
+      } else {
+        res.redirect("https://" + result.main_url);
+      }
     })
     .catch((err) => {
       console.log(err);

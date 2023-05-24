@@ -7,10 +7,10 @@ const urlDb = new mongoose.Schema(
     //   required: true,
     //   unique: true,
     // },
-    _id: {
-      type: Number,
-      unique: true,
-    },
+    // _id: {
+    //   type: String,
+    //   unique: true,
+    // },
     main_url: {
       type: String,
     },
