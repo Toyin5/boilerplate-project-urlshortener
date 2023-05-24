@@ -43,6 +43,9 @@ app.post("/api/shorturl", async (req, res) => {
   if (url.indexOf(":") !== -1) {
     hostname = url.slice(url.indexOf(":") + 3);
   }
+  if (url.indexOf("/") !== -1) {
+    hostname = hostname.slice(0, hostname.indexOf("/"));
+  }
   options.all = true;
   dns.lookup(hostname, options, async (err, addresses) => {
     if (err) {
