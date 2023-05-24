@@ -55,7 +55,7 @@ app.post("/api/shorturl", async (req, res) => {
         // const newUrl = new urlDb({ _id: id, main_url: url });
         const newUrl = new urlDb({ main_url: url });
         const doc = await newUrl.save();
-        res.status(200).json({ original_url: url, short_url: doc._id });
+        res.json({ original_url: url, short_url: doc._id });
       } catch (error) {
         console.log(error);
         res.status(500).json({ message: "Internal server error" });
