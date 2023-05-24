@@ -49,7 +49,7 @@ app.post("/api/shorturl", async (req, res) => {
   options.all = true;
   dns.lookup(hostname, options, async (err, addresses) => {
     if (err) {
-      res.status(404).json({ error: "invalid url" });
+      res.json({ error: "invalid url" });
     } else {
       try {
         // const newUrl = new urlDb({ _id: id, main_url: url });
