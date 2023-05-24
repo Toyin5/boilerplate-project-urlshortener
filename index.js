@@ -37,6 +37,8 @@ app.get("/api/hello", function (req, res) {
 
 app.post("/api/shorturl", async (req, res) => {
   const { url } = req.body;
+  const arr = new Uint32Array(5);
+  const id = crypto.getRandomValues(arr)[0];
   console.log(url);
   options.all = true;
   dns.lookup(url, options, async (err, addresses) => {
@@ -44,9 +46,9 @@ app.post("/api/shorturl", async (req, res) => {
       res.status(404).json({ error: "invalid url" });
     } else {
       try {
-        const newUrl = new urlDb({ main_url: url });
-        await newUrl.save();
-        res.status(200).json({ original_url: url, short_url: newUrl._id });
+        const newUrl = new urlDb({ _id: id, main_url: url });
+        const doc = await newUrl.save();
+        res.status(200).json({ original_url: url, short_url: doc._id });
       } catch (error) {
         console.log(error);
         res.status(500).json({ message: "Internal server error" });

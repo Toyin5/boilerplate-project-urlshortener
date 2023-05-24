@@ -7,10 +7,10 @@ const urlDb = new mongoose.Schema(
     //   required: true,
     //   unique: true,
     // },
-    // short_url: {
-    //   type: String,
-    //   unique: true,
-    // },
+    _id: {
+      type: Number,
+      unique: true,
+    },
     main_url: {
       type: String,
     },
@@ -18,4 +18,4 @@ const urlDb = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = urlDb;
+module.exports = mongoose.model("urlDb", urlDb);
