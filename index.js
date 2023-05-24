@@ -39,9 +39,12 @@ app.post("/api/shorturl", async (req, res) => {
   const { url } = req.body;
   const arr = new Uint32Array(5);
   const id = crypto.getRandomValues(arr)[0];
-  console.log(url);
+  let hostname = url;
+  if (url.indexOf(":") !== -1) {
+    hostname = url.slice(url.indexOf(":") + 3);
+  }
   options.all = true;
-  dns.lookup(url, options, async (err, addresses) => {
+  dns.lookup(hostname, options, async (err, addresses) => {
     if (err) {
       res.status(404).json({ error: "invalid url" });
     } else {
@@ -61,14 +64,13 @@ app.get("/api/shorturl/:url", async (req, res) => {
   const { url } = req.params;
   console.log(url);
   await urlDb
-    .findById(url)
+    .findOne({ _id: url })
     .then((result) => {
       console.log(result);
-      res.writeHead(301);
-      res.location(result.main_url);
-      res.end();
+      res.redirect(result.main_url);
     })
     .catch((err) => {
+      console.log(err);
       res.status(404).json({ message: "url id not found" });
     });
 });
